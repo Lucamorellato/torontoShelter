@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # state-of-emergency
+=======
+# toronto-shelter
+>>>>>>> init
 
 ## Project setup
 ```

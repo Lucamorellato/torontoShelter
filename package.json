@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "state-of-emergency",
+=======
+  "name": "toronto-shelter",
+>>>>>>> init
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,17 +13,29 @@
   },
   "dependencies": {
     "vue": "^2.5.21",
+<<<<<<< HEAD
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
+=======
+    "vue-router": "^3.0.1"
+>>>>>>> init
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
+<<<<<<< HEAD
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+=======
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+>>>>>>> init
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
@@ -29,7 +45,11 @@
     },
     "extends": [
       "plugin:vue/essential",
+<<<<<<< HEAD
       "@vue/prettier"
+=======
+      "eslint:recommended"
+>>>>>>> init
     ],
     "rules": {},
     "parserOptions": {
