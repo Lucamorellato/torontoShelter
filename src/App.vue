@@ -15,7 +15,33 @@ import axios from 'axios'
 export default {
   data(){
     return{
+      // Array: [
+      //     {
+      //       FACILITY_NAME: "wow"
+      //     },
+      //     {
+      //       FACILITY_NAME: "wow"
+      //     },
+      //     {
+      //       FACILITY_NAME: "wow"
+      //     },
+      //     {
+      //       FACILITY_NAME: "poo"
+      //     },{
+      //       FACILITY_NAME: "loo"
+      //     },
+      //     {
+      //       FACILITY_NAME: "wow"
+      //     },
+      //     {
+      //       FACILITY_NAME: "poo"
+      //     },
+      //     {
+      //       FACILITY_NAME: "apple"
+      //     },
+      //   ],
       info: [],
+      fakeInfo: [],
       count: 0,
       massagedInfo: {
         name: "",
@@ -26,36 +52,43 @@ export default {
   },
   created: function()
   {
-    this.fetchItems();
     console.log("app created")
   },
   mounted(){
     console.log("App mounted")
+    this.fetchItems();
+    console.log("after fetchItems()")
+    this.fakeInfo.reverse()
+    console.log("after reverse")
   },
   Mounted(){
     console.log("App MOUNTED")
   },
   methods: {
     fetchItems() {
-    axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000')
+    axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME')
       .then(response => {
         response.data.map(res => {
-          // console.log(res)
-          this.info.push(res)
-
-  
-          // const newArray = this.info
-          // const backwardsArray = newArray.reverse()
-
-
+          let results = res.splice(0, 105)
+          this.info.push(results)
         })
-        this.massagedInfo = {
-            name: this.info[0].FACILITY_NAME,
-            totalBeds: this.info[0].CAPACITY,
-            openBeds: this.info[0].OCCUPANCY - this.info[0].CAPACITY,
-          }
+
+
+
+        // this.massagedInfo = {
+        //   name: this.info[2898].FACILITY_NAME,
+        //   totalBeds: this.info[2898].CAPACITY,
+        //   openBeds: this.info[2898].OCCUPANCY - this.info[2898].CAPACITY,
+        // }
+        console.log("API DONE")
+
       })
-      // .catch(error => console.log(error))
+      .catch(error => console.log(error))
+      // .then(results => {
+      //   this.fakeInfo.splice(0, 104)
+      //   console.log("2nd then done")
+      // })
+    
     },
   }
 }
