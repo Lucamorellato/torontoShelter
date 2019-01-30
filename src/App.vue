@@ -41,7 +41,7 @@ export default {
       //     },
       //   ],
       info: [],
-      fakeInfo: [],
+      fullShelterInfo: [],
       count: 0,
       massagedInfo: {
         name: "",
@@ -66,16 +66,17 @@ export default {
     fetchItems() {
     axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME')
       .then(response => {
+        //count index to find out how many entries are in the API call
         let index = 0
+        //map through res and push results into state and start counting index
         response.data.map(res => {
           this.info.push(res)
+          this.fullShelterInfo.push(res)
           index++
         })
-        console.log(index)
-
-
-        let newArray = this.info.splice(0, (index - 107))
-        this.fakeInfo.push(newArray)
+        //set Data of splice of the 106 most recent posts (there are 106 shelters in Toronto)
+        this.info.splice(0, (index - 107))
+        
 
 
 
