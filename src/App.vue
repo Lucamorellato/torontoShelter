@@ -8,6 +8,59 @@
   </div>
 </template>
 
+<script>
+
+import axios from 'axios'
+
+export default {
+  data(){
+    return{
+      info: [],
+      count: 0,
+      massagedInfo: {
+        name: "",
+        totalBeds: 0,
+        openBeds: 0
+      }
+    }
+  },
+  created: function()
+  {
+    this.fetchItems();
+    console.log("app created")
+  },
+  mounted(){
+    console.log("App mounted")
+  },
+  Mounted(){
+    console.log("App MOUNTED")
+  },
+  methods: {
+    fetchItems() {
+    axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000')
+      .then(response => {
+        response.data.map(res => {
+          // console.log(res)
+          this.info.push(res)
+
+  
+          // const newArray = this.info
+          // const backwardsArray = newArray.reverse()
+
+
+        })
+        this.massagedInfo = {
+            name: this.info[0].FACILITY_NAME,
+            totalBeds: this.info[0].CAPACITY,
+            openBeds: this.info[0].OCCUPANCY - this.info[0].CAPACITY,
+          }
+      })
+      // .catch(error => console.log(error))
+    },
+  }
+}
+</script>
+
 
 
 <style lang="scss">
