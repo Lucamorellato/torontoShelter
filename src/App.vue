@@ -58,8 +58,6 @@ export default {
     console.log("App mounted")
     this.fetchItems();
     console.log("after fetchItems()")
-    this.fakeInfo.reverse()
-    console.log("after reverse")
   },
   Mounted(){
     console.log("App MOUNTED")
@@ -68,17 +66,23 @@ export default {
     fetchItems() {
     axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME')
       .then(response => {
+        let index = 0
         response.data.map(res => {
-          let results = res.splice(0, 105)
-          this.info.push(results)
+          this.info.push(res)
+          index++
         })
+        console.log(index)
+
+
+        let newArray = this.info.splice(0, (index - 107))
+        this.fakeInfo.push(newArray)
 
 
 
         // this.massagedInfo = {
-        //   name: this.info[2898].FACILITY_NAME,
-        //   totalBeds: this.info[2898].CAPACITY,
-        //   openBeds: this.info[2898].OCCUPANCY - this.info[2898].CAPACITY,
+        //   name: this.info[3030].FACILITY_NAME,
+        //   totalBeds: this.info[3030].CAPACITY,
+        //   openBeds: this.info[3030].OCCUPANCY - this.info[3030].CAPACITY,
         // }
         console.log("API DONE")
 
