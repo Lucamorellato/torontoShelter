@@ -68,6 +68,7 @@ export default {
       .then(response => {
         //count index to find out how many entries are in the API call
         let index = 0
+        
         //map through res and push results into state and start counting index
         response.data.map(res => {
           this.info.push(res)
