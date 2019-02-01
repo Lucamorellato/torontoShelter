@@ -36,7 +36,8 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  template: `<h1>WOW</h1>`
 }
 </script>
 

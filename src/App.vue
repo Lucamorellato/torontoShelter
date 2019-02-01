@@ -15,31 +15,6 @@ import axios from 'axios'
 export default {
   data(){
     return{
-      // Array: [
-      //     {
-      //       FACILITY_NAME: "wow"
-      //     },
-      //     {
-      //       FACILITY_NAME: "wow"
-      //     },
-      //     {
-      //       FACILITY_NAME: "wow"
-      //     },
-      //     {
-      //       FACILITY_NAME: "poo"
-      //     },{
-      //       FACILITY_NAME: "loo"
-      //     },
-      //     {
-      //       FACILITY_NAME: "wow"
-      //     },
-      //     {
-      //       FACILITY_NAME: "poo"
-      //     },
-      //     {
-      //       FACILITY_NAME: "apple"
-      //     },
-      //   ],
       info: [],
       fullShelterInfo: [],
       count: 0,
@@ -78,23 +53,16 @@ export default {
         //set Data of splice of the 106 most recent posts (there are 106 shelters in Toronto)
         this.info.splice(0, (index - 107))
         
-
-
-
         // this.massagedInfo = {
         //   name: this.info[3030].FACILITY_NAME,
         //   totalBeds: this.info[3030].CAPACITY,
         //   openBeds: this.info[3030].OCCUPANCY - this.info[3030].CAPACITY,
         // }
+
         console.log("API DONE")
 
       })
-      .catch(error => console.log(error))
-      // .then(results => {
-      //   this.fakeInfo.splice(0, 104)
-      //   console.log("2nd then done")
-      // })
-    
+      .catch(error => console.log(error))  
     },
   }
 }
