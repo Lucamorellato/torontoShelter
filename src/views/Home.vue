@@ -17,7 +17,7 @@ import axios from 'axios'
 export default {
   data(){
     return{
-      
+      word: "WHAT IS THIS"
     }
   },
   props: { 

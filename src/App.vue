@@ -49,6 +49,13 @@ export default {
       })
       //turn currentShelterInfo into a smaller array using the two variables
       this.currentShelterInfo.splice(0, (index - numberOfOpenShelters))  
+
+      // starting a function that will add up all beds
+      // let allBeds = this.currentShelterInfo.reduce(function(accumulator, currentValue){
+      //   return currentValue.CAPACITY
+      // })
+
+      console.log(allBeds)
     }
   }
 }
