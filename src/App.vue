@@ -15,14 +15,8 @@ import axios from 'axios'
 export default {
   data(){
     return{
-      info: [],
-      fullShelterInfo: [],
-      count: 0,
-      massagedInfo: {
-        name: "",
-        totalBeds: 0,
-        openBeds: 0
-      }
+      currentShelterInfo: [],
+      historicalShelterInfo: [],
     }
   },
   created: function()
@@ -38,34 +32,26 @@ export default {
     console.log("App MOUNTED")
   },
   methods: {
-    fetchItems() {
-    axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME')
-      .then(response => {
-        //count index to find out how many entries are in the API call
-        let index = 0
-        
-        //map through res and push results into state and start counting index
-        response.data.map(res => {
-          this.info.push(res)
-          this.fullShelterInfo.push(res)
-          index++
-        })
-        //set Data of splice of the 106 most recent posts (there are 106 shelters in Toronto)
-        this.info.splice(0, (index - 107))
-        
-        // this.massagedInfo = {
-        //   name: this.info[3030].FACILITY_NAME,
-        //   totalBeds: this.info[3030].CAPACITY,
-        //   openBeds: this.info[3030].OCCUPANCY - this.info[3030].CAPACITY,
-        // }
-
-        console.log("API DONE")
-
+    fetchItems: async function(){
+      const result = await axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME');
+      const data = result.data
+    
+      // count index to find out how many entries are in the API call
+      // creating variable for number of currently open shelters 
+      let index = 0
+      let numberOfOpenShelters = 107
+      
+      //map through res and push results into state and start counting index
+      result.data.map(res => {
+        this.currentShelterInfo.push(res)
+        this.historicalShelterInfo.push(res)
+        index++
       })
-      .catch(error => console.log(error))  
-    },
+      this.currentShelterInfo.splice(0, (index - numberOfOpenShelters))  
+    }
   }
 }
+
 </script>
 
 
