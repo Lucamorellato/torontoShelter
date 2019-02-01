@@ -3,10 +3,13 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Toronto Shelter Watch"/>
     <NewComponent/>
+      <div v-for="shelter in currentShelterInfo"> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Taken: {{ shelter.OCCUPANCY }}
+      </div>    
   </div>
 </template>
 
 <script>
+
 import HelloWorld from '@/components/HelloWorld.vue'
 import NewComponent from '@/components/NewComponent.vue'
 import axios from 'axios'
@@ -14,7 +17,14 @@ import axios from 'axios'
 export default {
   data(){
     return{
-      banana: 'peel',
+      
+    }
+  },
+  props: { 
+    currentShelterInfo: 
+    {
+      type: Array,
+      required: true
     }
   },
   name: 'home',
@@ -22,9 +32,15 @@ export default {
     HelloWorld,
     NewComponent
   },
-  mounted(){
-    console.log("Home mounted")
+  methods: {
+    wowFunction(){
+      console.log(this.currentShelterInfo[3].OCCUPANCY)
+    }
+  },
+  updated(){
+    this.wowFunction()
   }
+
 }
 
 </script>

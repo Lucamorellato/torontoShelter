@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link  to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view :currentShelterInfo="this.currentShelterInfo"></router-view>
   </div>
 </template>
 
@@ -22,11 +22,11 @@ export default {
   created: function()
   {
     console.log("app created")
+     this.fetchItems()
+     console.log("after fetchItems()")
   },
   mounted(){
     console.log("App mounted")
-    this.fetchItems();
-    console.log("after fetchItems()")
   },
   Mounted(){
     console.log("App MOUNTED")
@@ -47,11 +47,11 @@ export default {
         this.historicalShelterInfo.push(res)
         index++
       })
+      //turn currentShelterInfo into a smaller array using the two variables
       this.currentShelterInfo.splice(0, (index - numberOfOpenShelters))  
     }
   }
 }
-
 </script>
 
 

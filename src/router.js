@@ -13,9 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
       components: {default: Home, sidebar: NewComponent},
-      props: {default: true, sidebar: true}
     },
     {
       path: '/about',
