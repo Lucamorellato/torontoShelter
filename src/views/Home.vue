@@ -3,7 +3,7 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Toronto Shelter Watch"/>
     <NewComponent/>
-      <div v-for="shelter in currentShelterInfo"> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Taken: {{ shelter.OCCUPANCY }}
+      <div v-for="shelter in currentShelterInfo"> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}
       </div>    
   </div>
 </template>

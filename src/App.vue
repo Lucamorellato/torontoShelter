@@ -17,6 +17,8 @@ export default {
     return{
       currentShelterInfo: [],
       historicalShelterInfo: [],
+      totalBeds: 0,
+      occupiedBeds: 0
     }
   },
   created: function()
@@ -40,8 +42,7 @@ export default {
       // creating variable for number of currently open shelters 
       let index = 0
       let numberOfOpenShelters = 107
-      
-      //map through res and push results into state and start counting index
+      //map through res and push results into data and start counting index
       result.data.map(res => {
         this.currentShelterInfo.push(res)
         this.historicalShelterInfo.push(res)
@@ -50,12 +51,23 @@ export default {
       //turn currentShelterInfo into a smaller array using the two variables
       this.currentShelterInfo.splice(0, (index - numberOfOpenShelters))  
 
-      // starting a function that will add up all beds
-      // let allBeds = this.currentShelterInfo.reduce(function(accumulator, currentValue){
-      //   return currentValue.CAPACITY
-      // })
 
-      console.log(allBeds)
+      // starting a function that will add up all beds and all occupied beds and assign to Data
+      let totalBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
+        return acc + currentValue.CAPACITY
+      }, 0);
+      let occupiedBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
+        return acc + currentValue.OCCUPANCY
+      }, 0);
+
+      this.totalBeds = totalBeds
+      this.occupiedBeds = occupiedBeds
+
+      let count = this.currentShelterInfo.reduce((tally, type) => {
+        tally[type.SECTOR] = (tally[type.SECTOR] || 0) + 1 ;
+        return tally;
+      } , {})
+      console.log(count)
     }
   }
 }
