@@ -6,8 +6,10 @@
       :totalBeds="this.totalBeds"
       :occupiedBeds="this.occupiedBeds"
     />
-    <button> Show Shelter Info </button>
-      <div v-for="shelter in currentShelterInfo"> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}
+    <button @click.prevent="onShow"> Show Shelter Info </button>
+      <div v-show="showShelters === true"
+      v-for="shelter in currentShelterInfo">
+        <p> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</p>
       </div>    
   </div>
 </template>
@@ -21,7 +23,7 @@ import axios from 'axios'
 export default {
   data(){
     return{
-
+      showShelters: false
     }
   },
   props: { 
@@ -54,6 +56,14 @@ export default {
   methods: {
     wowFunction(){
       console.log(this.currentShelterInfo[3].OCCUPANCY)
+    },
+    onShow(){
+      console.log("clicked")
+      if(this.showShelters === false) {
+        this.showShelters = true;
+      } else {
+        this.showShelters = false;
+      }
     }
   },
   updated(){
@@ -61,5 +71,9 @@ export default {
   }
 
 }
-
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+
+</style>
