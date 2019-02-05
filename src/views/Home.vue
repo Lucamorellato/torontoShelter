@@ -6,6 +6,7 @@
       :totalBeds="this.totalBeds"
       :occupiedBeds="this.occupiedBeds"
     />
+    <button> Show Shelter Info </button>
       <div v-for="shelter in currentShelterInfo"> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}
       </div>    
   </div>
