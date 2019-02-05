@@ -4,7 +4,12 @@
       <router-link  to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view :currentShelterInfo="this.currentShelterInfo"></router-view>
+    <router-view 
+    :currentShelterInfo="this.currentShelterInfo"
+    :totalBeds="this.totalBeds"
+    :occupiedBeds="this.occupiedBeds"
+    :shelterTypes="this.shelterTypes">
+    </router-view>
   </div>
 </template>
 
@@ -17,6 +22,7 @@ export default {
     return{
       currentShelterInfo: [],
       historicalShelterInfo: [],
+      shelterTypes: {},
       totalBeds: 0,
       occupiedBeds: 0
     }
@@ -24,7 +30,7 @@ export default {
   created: function()
   {
     console.log("app created")
-     this.fetchItems()
+     this.fetchData()
      console.log("after fetchItems()")
   },
   mounted(){
@@ -34,7 +40,7 @@ export default {
     console.log("App MOUNTED")
   },
   methods: {
-    fetchItems: async function(){
+    fetchData: async function(){
       const result = await axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME');
       const data = result.data
     
@@ -51,23 +57,26 @@ export default {
       //turn currentShelterInfo into a smaller array using the two variables
       this.currentShelterInfo.splice(0, (index - numberOfOpenShelters))  
 
-
-      // starting a function that will add up all beds and all occupied beds and assign to Data
+      this.massageData()
+    },
+    massageData(){
+       // starting a function that will add up all beds and all occupied beds and assign to Data
       let totalBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
         return acc + currentValue.CAPACITY
       }, 0);
       let occupiedBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
         return acc + currentValue.OCCUPANCY
       }, 0);
-
       this.totalBeds = totalBeds
       this.occupiedBeds = occupiedBeds
 
-      let count = this.currentShelterInfo.reduce((tally, type) => {
+      //creating a tally of the different types of shelters and passing to data
+      let shelterTypes = this.currentShelterInfo.reduce((tally, type) => {
         tally[type.SECTOR] = (tally[type.SECTOR] || 0) + 1 ;
         return tally;
       } , {})
-      console.log(count)
+      this.shelterTypes = shelterTypes
+
     }
   }
 }
