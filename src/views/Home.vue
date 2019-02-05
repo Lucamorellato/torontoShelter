@@ -1,15 +1,18 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Toronto Shelter Watch"/>
     <NewComponent
       :totalBeds="this.totalBeds"
       :occupiedBeds="this.occupiedBeds"
     />
     <button @click.prevent="onShow"> Show Shelter Info </button>
-      <div v-show="showShelters === true"
+      <div 
       v-for="shelter in currentShelterInfo">
-        <p> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</p>
+      <transition name="fade">
+        <div v-show="showShelters === true"> 
+          <p> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</p>
+        </div>
+      </transition>
       </div>    
   </div>
 </template>
@@ -75,5 +78,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .4s ease;
 
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>

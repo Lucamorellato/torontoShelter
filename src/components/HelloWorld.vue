@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h3>{{ msg }}</h3>
   </div>
 </template>
 
@@ -9,8 +9,7 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  },
-  template: `<h1>WOW</h1>`
+  }
 }
 </script>
 
@@ -18,10 +17,7 @@ export default {
 <style scoped lang="scss">
 h3 {
   margin: 40px 0 0;
-
-  span {
-    color:red;
-  }
+  color: blue;
 }
 ul {
   list-style-type: none;

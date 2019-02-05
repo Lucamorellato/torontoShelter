@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
+      <h1>Toronto Shelter Watch</h1>
       <router-link  to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
@@ -55,7 +56,7 @@ export default {
         index++
       })
       //turn currentShelterInfo into a smaller array using the two variables
-      this.currentShelterInfo.splice(0, (index - numberOfOpenShelters))  
+      this.currentShelterInfo.splice(0, (index - numberOfOpenShelters)) 
 
       this.massageData()
     },
