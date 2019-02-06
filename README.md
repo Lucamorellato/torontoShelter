@@ -3,7 +3,7 @@
 ## Idea
 
 
-make a Vue single page app using Axios and Vue Router 
+make a Vue single page app using Axios and Vue Router. Practise.
 
 
 
