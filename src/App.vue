@@ -42,14 +42,14 @@ export default {
   methods: {
     fetchData: async function(){
       const result = await axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME');
-      const data = result.data
+      const { data } = result;
     
       // count index to find out how many entries are in the API call
       // creating variable for number of currently open shelters 
       let index = 0
       let numberOfOpenShelters = 107
       //map through res and push results into data and start counting index
-      result.data.map(res => {
+      data.map(res => {
         this.currentShelterInfo.push(res)
         this.historicalShelterInfo.push(res)
         index++
