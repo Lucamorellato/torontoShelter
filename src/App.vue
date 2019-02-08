@@ -21,9 +21,6 @@ export default {
     return {
       currentShelterInfo: [],
       historicalShelterInfo: []
-      //  shelterTypes: {},
-      //   totalBeds: 0,
-      //   occupiedBeds: 0
     };
   },
   created: function() {
