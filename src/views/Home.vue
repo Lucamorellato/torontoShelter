@@ -61,12 +61,7 @@ export default {
       console.log(this.currentShelterInfo[3].OCCUPANCY)
     },
     onShow(){
-      console.log("clicked")
-      if(this.showShelters === false) {
-        this.showShelters = true;
-      } else {
-        this.showShelters = false;
-      }
+      this.showShelters = !this.showShelters;
     }
   },
   updated(){
