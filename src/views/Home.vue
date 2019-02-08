@@ -1,27 +1,23 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Toronto Shelter Watch"/>
-    <NewComponent
-      :totalBeds="this.totalBeds"
-      :occupiedBeds="this.occupiedBeds"
+    <Hero
+        :totalBeds="this.totalBeds"
+        :occupiedBeds="this.occupiedBeds"
     />
     <button @click.prevent="onShow"> Show Shelter Info </button>
-      <div 
-      v-for="shelter in currentShelterInfo">
-      <transition name="fade">
-        <div v-show="showShelters === true"> 
-          <p> {{ shelter.FACILITY_NAME }} {{ shelter.PROGRAM_NAME }} Total Beds: {{ shelter.CAPACITY }} Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</p>
-        </div>
-      </transition>
-      </div>    
+    <div class="poopdaddy">
+      <div class="poop" v-for="(shelter, index) in currentShelterInfo" :key="index">
+        <transition name="fade">
+          <ShelterCard :shelter="shelter" v-show="showShelters" />
+        </transition>
+      </div>
+    </div>  
   </div>
 </template>
 
 <script>
-
-import HelloWorld from '@/components/HelloWorld.vue'
-import NewComponent from '@/components/NewComponent.vue'
-import axios from 'axios'
+import Hero from '@/components/Hero.vue'
+import ShelterCard from '@/components/ShelterCard.vue'
 
 export default {
   data(){
@@ -30,17 +26,17 @@ export default {
     }
   },
   props: { 
-    currentShelterInfo: 
+    currentShelterInfo:
     {
       type: Array,
       required: true
     },
-    totalBeds: 
+    totalBeds:
     {
       type: Number,
       required: true
     },
-    occupiedBeds: 
+    occupiedBeds:
     {
       type: Number,
       required: true
@@ -53,24 +49,18 @@ export default {
   },
   name: 'home',
   components: {
-    HelloWorld,
-    NewComponent
+    Hero,
+    ShelterCard
   },
   methods: {
-    wowFunction(){
-      console.log(this.currentShelterInfo[3].OCCUPANCY)
-    },
-    onShow(){
+   onShow(){
       console.log("clicked")
-      if(this.showShelters === false) {
-        this.showShelters = true;
-      } else {
-        this.showShelters = false;
-      }
+      this.showShelters = !this.showShelters;
     }
   },
   updated(){
-    this.wowFunction()
+    console.log("updated()")
+    window.scrollTo(0,0)
   }
 
 }
@@ -79,10 +69,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .4s ease;
-
+  transition: opacity .4s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.poop {
+  background: #fee;
+  width: 45%;
+  margin: 10px 10px;
+  border-radius: 10px;
+}
+.poopdaddy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

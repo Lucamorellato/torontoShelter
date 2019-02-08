@@ -1,16 +1,23 @@
 <template>
   <div class="hello">
-    <h3>{{ msg }}</h3>
+    <h2>There are {{ this.totalBeds - this.occupiedBeds }} beds available in Toronto Shelters tonight.</h2>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  export default {
+    name: "Hero",
+    props: {
+      totalBeds: {
+        type: Number,
+        required: true
+      },
+      occupiedBeds: {
+        type: Number,
+        required: true
+      }
+    }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
