@@ -44,26 +44,32 @@ export default {
       const result = await axios.get('https://secure.toronto.ca/c3api_data/v2/DataAccess.svc/ssha/extractssha?$format=application/json;odata.metadata=none&unwrap=true&$top=100000&$select=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,SHELTER_ADDRESS,SHELTER_CITY,SHELTER_PROVINCE,SHELTER_POSTAL_CODE,FACILITY_NAME,PROGRAM_NAME,SECTOR,OCCUPANCY,CAPACITY&$orderby=OCCUPANCY_DATE,ORGANIZATION_NAME,SHELTER_NAME,FACILITY_NAME,PROGRAM_NAME');
       const { data } = result;
     
-      
+      // count index to find out how many entries are in the API call
+      // creating variable for number of currently open shelters 
+      let totalShelters = data.length;
       let numberOfOpenShelters = 107
-      this.historicalShelterInfo = [...data];
-      this.currentShelterInfo = [...data].slice(0, numberOfOpenShelters)
+      //map through res and push results into data and start counting index
+      data.map(res => {
+        // this.currentShelterInfo.push(res)
+        // this.historicalShelterInfo.push(res)
+      })
+      this.currentShelterInfo = [...data]
       
+      this.currentShelterInfo.splice(0, (totalShelters - numberOfOpenShelters)) 
+
       this.massageData()
     },
     massageData(){
        // starting a function that will add up all beds and all occupied beds and assign to Data
-      let totalBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
+      this.totalBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
         return acc + currentValue.CAPACITY
       }, 0);
-      let occupiedBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
+      this.occupiedBeds = this.currentShelterInfo.reduce((acc, currentValue) => {
         return acc + currentValue.OCCUPANCY
       }, 0);
-      this.totalBeds = totalBeds
-      this.occupiedBeds = occupiedBeds
-
+      
       //creating a tally of the different types of shelters and passing to data
-      let shelterTypes = this.currentShelterInfo.reduce((tally, type) => {
+      this.shelterTypes = this.currentShelterInfo.reduce((tally, type) => {
         tally[type.SECTOR] = (tally[type.SECTOR] || 0) + 1 ;
         return tally;
       } , {})
