@@ -46,16 +46,15 @@ export default {
     
       // count index to find out how many entries are in the API call
       // creating variable for number of currently open shelters 
-      let index = 0
+      let totalShelters = data.length;
       let numberOfOpenShelters = 107
       //map through res and push results into data and start counting index
       data.map(res => {
         this.currentShelterInfo.push(res)
         this.historicalShelterInfo.push(res)
-        index++
       })
       //turn currentShelterInfo into a smaller array using the two variables
-      this.currentShelterInfo.splice(0, (index - numberOfOpenShelters)) 
+      this.currentShelterInfo.splice(0, (totalShelters - numberOfOpenShelters)) 
 
       this.massageData()
     },
