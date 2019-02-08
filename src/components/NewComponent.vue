@@ -1,6 +1,6 @@
 <template>
    <div class="hello">
-      <h1>There are {{ this.totalBeds - this.occupiedBeds }} beds available in Toronto Shelters tonight.</h1>
+      <h1>There are {{ availableBeds }} beds available in Toronto Shelters tonight.</h1>
    </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
     occupiedBeds: {
       type: Number,
       required: true
+    }
+  },
+  computed: {
+    availableBeds() {
+      return this.totalBeds - this.occupiedBeds
     }
   }
 }
