@@ -10,9 +10,6 @@
   export default {
     name: "ShelterCard",
     props: [ 'shelter' ],
-    destroyed(){
-      console.log("btw")
-    }  
   }
 </script>
 
