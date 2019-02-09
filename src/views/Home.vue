@@ -59,7 +59,6 @@ export default {
     }
   },
   updated(){
-    console.log("updated()")
     window.scrollTo(0,0)
   }
 
