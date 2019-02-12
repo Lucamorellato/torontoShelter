@@ -18,7 +18,6 @@
 <script>
 import Hero from '@/components/Hero.vue'
 import ShelterCard from '@/components/ShelterCard.vue'
-
 export default {
   data(){
     return{
@@ -61,13 +60,11 @@ export default {
   updated(){
     window.scrollTo(0,0)
   }
-
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .fade-enter-active, .fade-leave-active {
   transition: opacity .4s;
 }

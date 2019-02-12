@@ -1,22 +1,23 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <div id="app inspire" dark>
+    <v-toolbar app fixed id="nav">
+      <div>
       <h1>Toronto Shelter Watch</h1>
       <router-link  to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
-    <router-view 
-    :currentShelterInfo="this.currentShelterInfo"
-    :totalBeds="this.totalBeds"
-    :occupiedBeds="this.occupiedBeds"
-    :shelterTypes="this.shelterTypes"
-    ></router-view>
+      </div>
+    </v-toolbar>
+      <router-view 
+      :currentShelterInfo="this.currentShelterInfo"
+      :totalBeds="this.totalBeds"
+      :occupiedBeds="this.occupiedBeds"
+      :shelterTypes="this.shelterTypes"
+      ></router-view>
   </div>
 </template>
 
 <script>
 import axios from "axios"
-
 export default {
   data(){
     return{
@@ -43,7 +44,6 @@ export default {
       //creating a tally of the different types of shelters and passing to data
       return this.currentShelterInfo.reduce((tally, type) => {
         tally[type.SECTOR] = (tally[type.SECTOR] || 0) + 1 ;
-
         return tally;
       } , {});
     }
@@ -69,13 +69,13 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-
-#app {
+#inspire {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  // color: #2c3e50;
+  color: #ffd;
 }
 html {
   scroll-behavior: smooth;
@@ -91,5 +91,4 @@ html {
     }
   }
 }
-
 </style>

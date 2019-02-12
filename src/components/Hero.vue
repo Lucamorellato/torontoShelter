@@ -20,6 +20,9 @@
     computed: {
       availableBeds() {
         return this.totalBeds - this.occupiedBeds
+      },
+      availbleBedsPercentage() {
+        
       }
     }
   }
