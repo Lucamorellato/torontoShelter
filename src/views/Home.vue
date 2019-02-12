@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home1">
     <Hero
         :totalBeds="this.totalBeds"
         :occupiedBeds="this.occupiedBeds"
