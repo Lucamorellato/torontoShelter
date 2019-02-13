@@ -1,6 +1,10 @@
 <template>
-  <div class="hello">
-    <h2>There are {{ availableBeds }} beds available in Toronto Shelters tonight.</h2>
+  <div class="hero">
+    <v-container>
+    <h2>Toronto Shelter Current Numbers</h2>
+    <h3>There are {{ availableBeds }} beds available</h3>
+    <h3>Shelters are at {{ capacityPercentage }} capcity</h3>
+    </v-container>
   </div>
 </template>
 
@@ -14,6 +18,11 @@
       },
       occupiedBeds: {
         type: Number,
+        required: true
+      },
+      capacityPercentage: 
+      {
+        type: String,
         required: true
       }
     },
@@ -30,9 +39,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.hero {
+  // color: white;
+  // padding-top: 100px;
+}
 h3 {
-  margin: 40px 0 0;
-  color: blue;
+  // margin: 40px 0 0 0;
+  // color: blue;
 }
 ul {
   list-style-type: none;
@@ -44,5 +57,10 @@ li {
 }
 a {
   color: #42b983;
+  text-decoration: none;
+  &:hover {
+    color: lighten (#42b983, 20%);
+    text-decoration: underline;
+  }
 }
 </style>

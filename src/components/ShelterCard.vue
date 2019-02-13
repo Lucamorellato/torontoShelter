@@ -1,9 +1,13 @@
 <template>
-  <div class="shelter">
-    <p>{{ shelter.FACILITY_NAME }} ({{ shelter.PROGRAM_NAME }})</p>
-    <h4>Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</h4>
-    <p>Total Beds: {{ shelter.CAPACITY }}</p>
-  </div>
+  <v-card elevation="10">
+    <v-card-title primary-title>
+      <p>{{ shelter.FACILITY_NAME }} ({{ shelter.PROGRAM_NAME }})</p>
+    </v-card-title>
+    <v-card-text>
+      <p>Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</p>
+      <p>Total Beds: {{ shelter.CAPACITY }}</p>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -14,13 +18,11 @@
 </script>
 
 <style scoped lang="scss">
-  .shelter {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5px;
-    margin: 0vh;
+
+  .v-card {
+    //  height: 150px;
     p {
-      // margin: 0;
+      margin: 0;
     }
     h4 {
       margin: 0;

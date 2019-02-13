@@ -1,18 +1,23 @@
 <template>
-  <div class="home1">
+<div class="home">
+  <v-content>
     <Hero
         :totalBeds="this.totalBeds"
         :occupiedBeds="this.occupiedBeds"
+        :capacityPercentage="this.capacityPercentage"
     />
-    <button @click.prevent="onShow"> Show Shelter Info </button>
-    <div class="poopdaddy">
-      <div class="poop" v-for="(shelter, index) in currentShelterInfo" :key="index">
-        <transition name="fade">
-          <ShelterCard :shelter="shelter" v-show="showShelters" />
-        </transition>
-      </div>
-    </div>  
-  </div>
+    <v-btn color="primary" large @click.prevent="onShow"> Show Shelter Info </v-btn>
+    <v-container>
+      <section class="shelter-gallery">
+        <div class="shelter" v-for="(shelter, index) in currentShelterInfo" :key="index">
+          <transition name="fade">
+            <ShelterCard :shelter="shelter" v-show="showShelters" />
+          </transition>
+        </div>
+      </section>
+    </v-container>  
+  </v-content>
+</div>
 </template>
 
 <script>
@@ -44,6 +49,11 @@ export default {
     {
       type: Object,
       required: true
+    },
+    capacityPercentage: 
+    {
+      type: String,
+      required: true
     }
   },
   name: 'home',
@@ -71,13 +81,23 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-.poop {
-  background: #fee;
+.home {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+.shelter {
   width: 45%;
   margin: 10px 10px;
   border-radius: 10px;
 }
-.poopdaddy {
+.shelter-gallery {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
