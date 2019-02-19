@@ -8,28 +8,27 @@
     />
     <v-btn color="accent" large @click="onShow" > Show Shelter Info </v-btn>
     <v-container grid-list-md>
-      <v-layout v-bind="binding" row wrap>
+      <v-layout v-bind="binding" row>
         <v-flex xs6 v-for="(shelter, index) in currentShelterInfo" :key="index">
           <transition name="fade">
             <ShelterCard :shelter="shelter" v-show="showShelters" />
           </transition>
         </v-flex>
         <v-card>
-          <v-card-text>
             <v-fab-transition>
               <v-btn
+                @click="scrollFunction"
                 v-show="!hidden"
                 color="accent"
                 dark
                 fixed
-                bottom
                 right
                 fab
+                bottom
               >
                 <v-icon>fa-arrow-up</v-icon>
               </v-btn>
             </v-fab-transition>
-          </v-card-text>
         </v-card>
       </v-layout>
     </v-container>  
@@ -40,20 +39,29 @@
 <script>
 import Hero from '@/components/Hero.vue'
 import ShelterCard from '@/components/ShelterCard.vue'
+
 export default {
   data(){
     return{
       showShelters: false,
+      hidden: false,
+      windowHeight: 0
     }
   },
   computed: {
     binding() {
       const binding = {}
 
-      if (this.$vuetify.breakpoint.mdAndUp) binding.column = true
+      if (this.$vuetify.breakpoint.mdAndUp) binding.wrap = true
+      if (this.$vuetify.breakpoint.smAndDown) binding.column = true
+      
 
       return binding
-    }
+    },
+  },
+  updated(){
+    this.scrollHeight()
+    console.log(this.$vuetify.breakpoint)
   },
   props: { 
     currentShelterInfo:
@@ -94,7 +102,13 @@ export default {
     onShow(){
       this.showShelters = !this.showShelters;
       this.scrollFunction()
+    },
+    scrollHeight(){
+      this.windowHeight = window.outerHeight 
     }
+  },
+  mounted (){
+    console.log()
   },
 }
 </script>
