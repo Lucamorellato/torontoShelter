@@ -9,7 +9,10 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
   theme: {
-    "accent": "#8bc34a",
+    "accent": "#165788",
+  },
+  options: {
+    customProperties: true
   }
 })
 

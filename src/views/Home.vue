@@ -6,15 +6,32 @@
         :occupiedBeds="this.occupiedBeds"
         :capacityPercentage="this.capacityPercentage"
     />
-    <v-btn color="primary" large @click.prevent="onShow"> Show Shelter Info </v-btn>
-    <v-container>
-      <section class="shelter-gallery">
-        <div class="shelter" v-for="(shelter, index) in currentShelterInfo" :key="index">
+    <v-btn color="accent" large @click="onShow" > Show Shelter Info </v-btn>
+    <v-container grid-list-md>
+      <v-layout v-bind="binding" row wrap>
+        <v-flex xs6 v-for="(shelter, index) in currentShelterInfo" :key="index">
           <transition name="fade">
             <ShelterCard :shelter="shelter" v-show="showShelters" />
           </transition>
-        </div>
-      </section>
+        </v-flex>
+        <v-card>
+          <v-card-text>
+            <v-fab-transition>
+              <v-btn
+                v-show="!hidden"
+                color="accent"
+                dark
+                fixed
+                bottom
+                right
+                fab
+              >
+                <v-icon>fa-arrow-up</v-icon>
+              </v-btn>
+            </v-fab-transition>
+          </v-card-text>
+        </v-card>
+      </v-layout>
     </v-container>  
   </v-content>
 </div>
@@ -26,7 +43,16 @@ import ShelterCard from '@/components/ShelterCard.vue'
 export default {
   data(){
     return{
-      showShelters: false
+      showShelters: false,
+    }
+  },
+  computed: {
+    binding() {
+      const binding = {}
+
+      if (this.$vuetify.breakpoint.mdAndUp) binding.column = true
+
+      return binding
     }
   },
   props: { 
@@ -62,14 +88,14 @@ export default {
     ShelterCard
   },
   methods: {
-   onShow(){
-      console.log("clicked")
+    scrollFunction(){
+      window.scrollTo(1,1)
+    },
+    onShow(){
       this.showShelters = !this.showShelters;
+      this.scrollFunction()
     }
   },
-  updated(){
-    window.scrollTo(0,0)
-  }
 }
 </script>
 
@@ -91,15 +117,8 @@ export default {
   min-height: 100vh;
 }
 
-.shelter {
-  width: 45%;
-  margin: 10px 10px;
-  border-radius: 10px;
+.v-card {
+  margin:10px 10px;
 }
-.shelter-gallery {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+
 </style>

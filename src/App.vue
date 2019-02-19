@@ -18,6 +18,10 @@
         ></router-view>
       </transition>
     </main>
+    <v-footer fixed height="auto">
+      <p>&copy;2019 — <a href="https://lucamorellato.com">Luca Morellato</a></p>
+    </v-footer>
+
 </v-app>
 </template>
 
@@ -72,17 +76,10 @@ export default {
       this.historicalShelterInfo = [...data];
       //reverse because I want the LAST 107 entries
       this.currentShelterInfo = [...data].reverse().slice(0, numberOfOpenShelters)
-      
-      this.currentShelterInfo.filter(shelter => {
-        if(shelter.PROGRAM_NAME.includes("Refugee"))
-          {console.log("wow")
-          }
-      })
     },
   }
 }
 </script>
-
 
 
 <style lang="scss">
@@ -96,13 +93,39 @@ export default {
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+$accent: #165788;
+
 html {
   scroll-behavior: smooth;
+  font-size: 62.5%;
+  --accent-color: #165788;
+}
+body {
+  font-size: 1.6rem;
+  color: var(--accent-color)
+}
+a {
+  color:lighten( #165788, 25%);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .2s, border-bottom .2s;
+  &:hover {
+    color: lighten(#165788, 50%);
+    border-color: lighten(#165788, 50%);
+  }
 }
 
 .v-toolbar {
   h1 {
-    font-size: 30px;
+    font-size: 2.5rem;
+  }
+}
+.v-footer {
+  display: flex;
+  justify-content: center;
+  p {
+    font-size: 1.1rem;
+    margin: 0;
   }
 }
 .mainFade-enter-active, .fade-leave-active {

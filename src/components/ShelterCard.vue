@@ -3,10 +3,10 @@
     <v-card-title primary-title>
       <p>{{ shelter.FACILITY_NAME }} ({{ shelter.PROGRAM_NAME }})</p>
     </v-card-title>
-    <v-card-text>
+    <div class="card-text">
       <p>Beds Available: {{ shelter.CAPACITY - shelter.OCCUPANCY }}</p>
       <p>Total Beds: {{ shelter.CAPACITY }}</p>
-    </v-card-text>
+    </div>
   </v-card>
 </template>
 
@@ -20,7 +20,7 @@
 <style scoped lang="scss">
 
   .v-card {
-    //  height: 150px;
+
     p {
       margin: 0;
     }
@@ -28,4 +28,13 @@
       margin: 0;
     }
   }
+
+  .card-text {
+      display: flex;
+      flex-direction: column;
+      // align-items: flex-start;
+      // margin: 0 0 10px 10px;
+      margin: 5px;
+      background: #165788;
+    }
 </style>
