@@ -1,15 +1,17 @@
 <template>
 <v-app id="inspire" dark>
-    <v-toolbar fixed app prominent
+    <v-toolbar  fixed app prominent
     >
       <h1>Toronto Shelter Watch</h1>
       <v-spacer></v-spacer>
+      
       <v-btn active-class="accent" to="/" style="cursor: pointer">Home</v-btn> |
       <v-btn active-class="accent" to="/about" style="cursor: pointer">About</v-btn>
     </v-toolbar>
     <main>
+      <Preloader v-show="!hideLoader" :hideLoader="hideLoader"/>
       <transition name="mainFade">
-        <router-view 
+        <router-view v-show="hideLoader"
         :currentShelterInfo="this.currentShelterInfo"
         :totalBeds="this.totalBeds"
         :occupiedBeds="this.occupiedBeds"
@@ -27,12 +29,20 @@
 
 <script>
 import axios from "axios"
+import Preloader from '@/components/Preloader.vue'
+
 export default {
   data(){
     return{
       currentShelterInfo: [],
-      historicalShelterInfo: [],
+      interval: {},
+      value: 0,
+      hideLoader: false,
+      // historicalShelterInfo: [],
     }
+  },
+  components: {
+    Preloader,
   },
   created: function()
   {
@@ -73,9 +83,12 @@ export default {
       let totalShelters = result.data.length
       let numberOfOpenShelters = 107
     
-      this.historicalShelterInfo = [...data];
+      //use this if you ever want to use historial data
+      // this.historicalShelterInfo = [...data];
+
       //reverse because I want the LAST 107 entries
       this.currentShelterInfo = [...data].reverse().slice(0, numberOfOpenShelters)
+      this.hideLoader = true
     },
   }
 }
@@ -118,8 +131,19 @@ a {
 .v-toolbar {
   h1 {
     font-size: 2.5rem;
+    text-align: center;
+    @media only screen and (max-width: 600px) { 
+      font-size: 1.5rem;
+    }
+    @media only screen and (max-width: 460px) { 
+      display: none;
+    }
   }
 }
+.v-progress-circular {
+  margin: 100px auto;
+}
+
 .v-footer {
   display: flex;
   justify-content: center;

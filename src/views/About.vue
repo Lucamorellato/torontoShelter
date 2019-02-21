@@ -9,6 +9,13 @@
       </div>
     </v-container>
 </template>
+<script>
+export default {
+  
+  
+}
+</script>
+
 
 <style lang="scss">
 .about {
@@ -22,6 +29,11 @@
   &-content {
     width: 80%;
     text-align: left;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    padding: 10px 0;
   }
   
 }

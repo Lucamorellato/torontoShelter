@@ -1,24 +1,26 @@
 <template>
-<div class="home">
-  <v-content>
-    <Hero
+<div class="home" id="app1" >
+  <v-content >
+    <Hero 
         :totalBeds="this.totalBeds"
         :occupiedBeds="this.occupiedBeds"
         :capacityPercentage="this.capacityPercentage"
+        :shelterTypes="this.shelterTypes"
     />
     <v-btn color="accent" large @click="onShow" > Show Shelter Info </v-btn>
-    <v-container grid-list-md>
-      <v-layout v-bind="binding" row>
-        <v-flex xs6 v-for="(shelter, index) in currentShelterInfo" :key="index">
-          <transition name="fade">
-            <ShelterCard :shelter="shelter" v-show="showShelters" />
-          </transition>
-        </v-flex>
-        <v-card>
+    <transition name="fade">
+      <v-container grid-list-md v-show="showShelters">
+        <v-layout v-bind="binding" row>
+          <v-flex xs6 v-for="(shelter, index) in currentShelterInfo" :key="index">
+            <transition name="fade">
+              <ShelterCard :shelter="shelter" v-show="showShelters" />
+            </transition>
+          </v-flex>
+          <v-card>
             <v-fab-transition>
               <v-btn
-                @click="scrollFunction"
-                v-show="!hidden"
+                @click="scrollToTopOfScreen"
+                v-show="!hiddenButton"
                 color="accent"
                 dark
                 fixed
@@ -29,9 +31,10 @@
                 <v-icon>fa-arrow-up</v-icon>
               </v-btn>
             </v-fab-transition>
-        </v-card>
-      </v-layout>
-    </v-container>  
+          </v-card>
+        </v-layout>
+      </v-container>  
+    </transition>
   </v-content>
 </div>
 </template>
@@ -40,28 +43,24 @@
 import Hero from '@/components/Hero.vue'
 import ShelterCard from '@/components/ShelterCard.vue'
 
+
 export default {
   data(){
     return{
       showShelters: false,
-      hidden: false,
-      windowHeight: 0
+      hiddenButton: true,
+      initialHeight: 0,
+      app: {},
+      // scrollPercent: 0
     }
   },
   computed: {
     binding() {
       const binding = {}
-
       if (this.$vuetify.breakpoint.mdAndUp) binding.wrap = true
       if (this.$vuetify.breakpoint.smAndDown) binding.column = true
-      
-
       return binding
     },
-  },
-  updated(){
-    this.scrollHeight()
-    console.log(this.$vuetify.breakpoint)
   },
   props: { 
     currentShelterInfo:
@@ -96,20 +95,36 @@ export default {
     ShelterCard
   },
   methods: {
-    scrollFunction(){
+    scrollToTopOfScreen(){
       window.scrollTo(1,1)
     },
     onShow(){
       this.showShelters = !this.showShelters;
-      this.scrollFunction()
+      this.scrollToTopOfScreen()
+      this.showShelters === true ? document.addEventListener('scroll', this.onScroll) : document.removeEventListener('scroll', this.onScroll)
+
     },
-    scrollHeight(){
-      this.windowHeight = window.outerHeight 
+    onScroll(){
+      //dividing the distance to top of document to its total height to get a number
+      let scrollPercent = (document.documentElement.scrollTop / this.initialHeight)
+      //then showing the button when partially scrolled
+      scrollPercent < .09 ? this.hiddenButton = true : this.hiddenButton = false
     }
   },
-  mounted (){
-    console.log()
+  mounted() {
+    //identifying the app element in state
+    this.app = document.getElementById('app1')
   },
+  updated(){
+    //setting the height of initial height of the app on update(when a user hits the show shelters button)
+    // this.data = true
+    this.initialHeight = this.app.offsetHeight
+    // console.log(this.$vuetify.breakpoint)
+  },
+  destroyed(){
+    //removing event listener for performance
+    document.removeEventListener('scroll', this.onScroll)
+  }
 }
 </script>
 
@@ -134,5 +149,4 @@ export default {
 .v-card {
   margin:10px 10px;
 }
-
 </style>

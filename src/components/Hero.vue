@@ -1,9 +1,9 @@
 <template>
   <div class="hero">
     <v-container>
-    <h2>Toronto Shelter Current Numbers</h2>
-    <h3>There are {{ availableBeds }} beds available</h3>
-    <h3>Shelters are at {{ capacityPercentage }} capcity</h3>
+      <h2>Toronto Shelter Current Numbers</h2>
+      <p>There are {{ availableBeds }} beds available</p>
+      <p>Shelters are at {{ capacityPercentage }} capacity</p>
     </v-container>
   </div>
 </template>
@@ -24,15 +24,17 @@
       {
         type: String,
         required: true
+      },
+      shelterTypes:
+      {
+        type: Object,
+        required: true
       }
     },
     computed: {
       availableBeds() {
         return this.totalBeds - this.occupiedBeds
       },
-      availbleBedsPercentage() {
-        
-      }
     }
   }
 </script>
