@@ -8,10 +8,10 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/torontoShelter/',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       components: {default: Home, sidebar: Hero},
     },
@@ -22,6 +22,10 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+    path: '*',
+    redirect: '/index.html'
     }
   ]
 })
